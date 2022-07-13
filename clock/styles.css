@@ -1,0 +1,41 @@
+.main-content{
+    background-color: #7D9D9C;
+    text-align: center;
+}
+
+.main-content > *{
+    margin: 0 auto;
+}
+
+.clock-options{
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+    padding: 2em 0;
+}
+
+.clock{
+    padding: 3em 0;
+    border: 2px solid white;
+}
+
+.timezone{
+    padding: 1em 0;
+    width: 600px;
+    display: flex;
+    gap:10px;    
+    justify-content: end;
+}
+
+.fa-circle-chevron-down{
+    color: #fff;
+}
+.fa-circle-plus{
+    color: #fff;
+}
+
+footer{
+    text-align: end;
+    background-color: black;
+    color: white;
+}
