@@ -34,3 +34,32 @@ function runClock(){
     document.getElementsByClassName("clock")[0].querySelector("h1").innerText = time;
     document.getElementsByClassName("clock")[0].querySelector("h2").innerText = today;
 }
+
+
+//const currentTimezone = document.querySelector("#current-timezone");
+//const str = new Date().toLocaleString('en-US', { timeZone: 'Europe/London' });
+//console.log(str);
+
+function addTimeZoneOptions()
+{
+var selectID = document.querySelectorAll("#timezone");
+var optionElement;
+
+for(var j=0; j< selectID.length; j++)
+{
+
+    for(var i=-12; i<=14; i+=0.5){
+        optionElement = document.createElement('option');
+      
+      if(i>0)
+      optionElement.innerText = "GMT+"+i;
+      else
+      optionElement.innerText = "GMT"+i;
+      optionElement.setAttribute('id',optionElement.innerText) 
+      selectID[j].append(optionElement);
+    }
+}
+}
+
+
+window.addEventListener('load', addTimeZoneOptions);
