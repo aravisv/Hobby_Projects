@@ -1,7 +1,14 @@
-runClock();
-setInterval(runClock, 1000);
-function runClock(){
-    let now = new Date();
+const IndiaTimeZoneOffset = 5.5;
+
+runClock(IndiaTimeZoneOffset);
+setInterval(runClock, 1000, IndiaTimeZoneOffset);
+
+
+function runClock(timeZoneOffset){
+    let localTime = new Date();
+    let utc = localTime.getTime()+(localTime.getTimezoneOffset()*60000);
+    let now = new Date(utc+(3600000*timeZoneOffset));
+    
     let hour = now.getHours();
     let minutes = now.getMinutes();
     let sec = now.getSeconds();
@@ -35,11 +42,6 @@ function runClock(){
     document.getElementsByClassName("clock")[0].querySelector("h2").innerText = today;
 }
 
-
-//const currentTimezone = document.querySelector("#current-timezone");
-//const str = new Date().toLocaleString('en-US', { timeZone: 'Europe/London' });
-//console.log(str);
-
 function addTimeZoneOptions()
 {
 var selectID = document.querySelectorAll("#timezone");
@@ -55,7 +57,11 @@ for(var j=0; j< selectID.length; j++)
       optionElement.innerText = "GMT+"+i;
       else
       optionElement.innerText = "GMT"+i;
-      optionElement.setAttribute('id',optionElement.innerText) 
+
+      if(j === 0)
+      optionElement.setAttribute('id',("home-time-"+optionElement.innerText)); 
+      else
+      optionElement.setAttribute('id',("foreign-time-"+optionElement.innerText)); 
       selectID[j].append(optionElement);
     }
 }
