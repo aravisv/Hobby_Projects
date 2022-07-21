@@ -1,7 +1,13 @@
-const IndiaTimeZoneOffset = 5.5;
+var HomeTimeZoneOffset = 5.5;
+var blah;
 
-runClock(IndiaTimeZoneOffset);
-setInterval(runClock, 1000, IndiaTimeZoneOffset);
+
+runClock(HomeTimeZoneOffset);
+runHomeTime(HomeTimeZoneOffset);
+function runHomeTime(HomeTimeZoneOffset){
+    blah = setInterval(runClock, 1000, HomeTimeZoneOffset);
+}
+
 
 
 function runClock(timeZoneOffset){
@@ -59,13 +65,26 @@ for(var j=0; j< selectID.length; j++)
       optionElement.innerText = "GMT"+i;
 
       if(j === 0)
-      optionElement.setAttribute('id',("home-time-"+optionElement.innerText)); 
+      optionElement.setAttribute('value',("home-time-"+optionElement.innerText)); 
       else
-      optionElement.setAttribute('id',("foreign-time-"+optionElement.innerText)); 
+      optionElement.setAttribute('value',("foreign-time-"+optionElement.innerText)); 
       selectID[j].append(optionElement);
     }
 }
 }
 
-
 window.addEventListener('load', addTimeZoneOptions);
+
+
+document.querySelector("#timezone").addEventListener("change",()=>{
+    clearInterval(blah);
+    var ttt=document.querySelector("#timezone");
+    //console.log( (ttt.options[ttt.selectedIndex].value).substr("home-time-GMT".length)  );
+    HomeTimeZoneOffset = 1 * (ttt.options[ttt.selectedIndex].value).substr("home-time-GMT".length);
+    //console.log(HomeTimeZoneOffset, " ", typeof(HomeTimeZoneOffset));
+    
+    runHomeTime(HomeTimeZoneOffset);
+});
+
+
+
