@@ -1,16 +1,17 @@
 var HomeTimeZoneOffset = 5.5;
-var blah;
+//var blah;
+var homeTimeIntervalID;
+const homeClockNumber = 0;
+var clockNumber = 0;
 
-
-runClock(HomeTimeZoneOffset);
+runClock(HomeTimeZoneOffset,homeClockNumber);
 runHomeTime(HomeTimeZoneOffset);
 function runHomeTime(HomeTimeZoneOffset){
-    blah = setInterval(runClock, 1000, HomeTimeZoneOffset);
+    homeTimeIntervalID = setInterval(runClock, 1000, HomeTimeZoneOffset, homeClockNumber);
 }
 
 
-
-function runClock(timeZoneOffset){
+function runClock(timeZoneOffset, clockNumber){
     let localTime = new Date();
     let utc = localTime.getTime()+(localTime.getTimezoneOffset()*60000);
     let now = new Date(utc+(3600000*timeZoneOffset));
@@ -44,14 +45,16 @@ function runClock(timeZoneOffset){
     time = hour + " : " + minutes + " : " + sec + " " + am_or_pm;  
     today = DD + "/" + MM + "/" + YYYY;
     
-    document.getElementsByClassName("clock")[0].querySelector("h1").innerText = time;
-    document.getElementsByClassName("clock")[0].querySelector("h2").innerText = today;
+    //document.getElementsByClassName("clock")[0].querySelector("h1").innerText = time;
+    document.querySelectorAll(".clock")[clockNumber].querySelector("h1").innerText = time;
+    document.querySelectorAll(".clock")[clockNumber].querySelector("h2").innerText = today;
 }
+
+var selectID = document.querySelectorAll("#timezone");
+var optionElement;
 
 function addTimeZoneOptions()
 {
-var selectID = document.querySelectorAll("#timezone");
-var optionElement;
 
 for(var j=0; j< selectID.length; j++)
 {
@@ -76,15 +79,61 @@ for(var j=0; j< selectID.length; j++)
 window.addEventListener('load', addTimeZoneOptions);
 
 
-document.querySelector("#timezone").addEventListener("change",()=>{
-    clearInterval(blah);
-    var ttt=document.querySelector("#timezone");
-    //console.log( (ttt.options[ttt.selectedIndex].value).substr("home-time-GMT".length)  );
-    HomeTimeZoneOffset = 1 * (ttt.options[ttt.selectedIndex].value).substr("home-time-GMT".length);
-    //console.log(HomeTimeZoneOffset, " ", typeof(HomeTimeZoneOffset));
+for(var j=0; j< selectID.length; j++)
+{
     
-    runHomeTime(HomeTimeZoneOffset);
-});
+    if( j === 0){
+        selectID[j].addEventListener("change",()=>{
+            clearInterval(homeTimeIntervalID);
+            //ttt = document.querySelectorAll("#timezone")[0];
+            //console.log( (ttt.options[ttt.selectedIndex].value).substr("home-time-GMT".length)  );
+            HomeTimeZoneOffset = 1 * (selectID[0].options[selectID[0].selectedIndex].value).substr("home-time-GMT".length);
+            //console.log(HomeTimeZoneOffset, " ", typeof(HomeTimeZoneOffset));
+            
+            runHomeTime(HomeTimeZoneOffset, homeClockNumber);
+        });
+    }
 
+    else{
+        selectID[1].addEventListener("change",()=>{
+
+        //add this value as class
+        console.log(selectID[1].options[selectID[1].selectedIndex].value);
+
+        var parent = document.querySelector(".my-grid");
+        var child1 = document.createElement('div');
+        var child11 = document.createElement('div');
+        child11.classList.add("delete-clock-button");
+        var deleteIcon = document.createElement('i');
+        
+        deleteIcon.classList.add("fa-solid","fa-trash-can");
+        
+        child11.append(deleteIcon);
+        
+
+        child1.classList.add("clock");
+        child1.classList.add("foreign-time");
+        
+
+        //necessary to add gmt as a class?
+        //child.classList.add((selectID[1].options[selectID[1].selectedIndex].value).substr("foreign-time-GMT".length));
+        
+        var foreignClockTimeZone = selectID[1].options[selectID[1].selectedIndex].value.substr("foreign-time-GMT".length);
+        var grandChild = document.createElement('div');
+        grandChild.setAttribute('class', "time-and-date");
+        
+        grandChild.append(document.createElement('h1') , document.createElement('h2') );
+        
+        setInterval(runClock , 1000, foreignClockTimeZone, ++clockNumber);
+        child1.append(grandChild);
+        parent.append(child1);
+        child1.append(child11);
+
+        //delete this option from select tag
+        selectID[1].options[selectID[1].selectedIndex].remove();
+        
+        });
+    }
+}
 
 
