@@ -16,7 +16,7 @@
 
 .my-grid{
     display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(500px,1fr));
+    grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
     gap: 20px;
     justify-items: center;
 }
@@ -24,32 +24,25 @@
 .clock{
     padding: 1em 1.75em;
     border: 2px solid white;
-    display: flex;       
-    width: 400px;
+    display: flex;   
+    flex-direction: column;    
+    margin: 32px;
     position: relative;
-    justify-content: space-between;
+    align-items: center;     
+    border-radius: 16px;
 }
   
-.foreign-time{
-    width: 200px;
-}
-
-.optionbox{
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
+.optionbox{    
     border: 2px solid white;
-    width: 200px;
+    padding: 0 8px;
+    font-size: 15px;
 }
   
 .optionbox select {
     background-color: #7D9D9C;
     color: #fff;
-    padding: 10px;
-    width: 180px;
-    height: 50px;
-    border: none;
-    font-size: 15px;
+    padding: 10px;    
+    border: none;    
     -webkit-appearance: button;
     outline: none;
 }
@@ -57,59 +50,40 @@
 .optionbox select:hover{
     cursor: pointer;
 }
-  
-.optionbox:before{
-    content: '\f358';
-    font-family: "Font Awesome 5 free";
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 50px;
-    width: 50px;
-    background-color: #7D9D9C;
-    text-align: center;
-    line-height: 50px;
-    color:#fff;
-    font-size: 30px;
-    pointer-events: none; 
-}
-  
+    
 .optionbox:hover{  
     background-color: #7D9D9C;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
     cursor: pointer;
 }  
 
-
 .delete-clock-button{
-    position: relative;
-    font-size: 25px;
+    font-size: 15px;
     color: white;
-    height: 35px;   
-    text-align: center;
-    top:0px;
+    border: 2px solid white;
+    padding: 10px;
 }
-  
-.delete-clock-button:hover{  
-    text-shadow: 2px 2px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-}  
 
+.delete-clock-button i{    
+    padding-left: 10px;    
+}
+
+.delete-clock-button i:hover{
+    text-shadow: 2px 2px rgba(0, 0, 0, 0.2);
+    cursor: pointer;    
+}
 
 .add-time-zone-section{
     padding: 1em 0;
-    width: 600px;
+    width: 200px;
     position: relative;
     margin-top: 5em;
 }
 
-.add-time-zone-section .optionbox:before{
-    content: '\f055';
-    font-weight: 900;
-}
-
 footer{
-    text-align: end;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
     background-color: black;
     color: white;
 }
