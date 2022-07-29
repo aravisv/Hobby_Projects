@@ -1,0 +1,35 @@
+HTML
+----
+shortcut ->  i.fas.fa.home	-> emmet abbreviation
+		 ->  span.class-name	-> <span class="class-name"></span>	
+vh = viewheights
+
+
+html5
+data-*attribute	: allows to store extra information
+
+
+CSS
+---
+box-sizing:border-box;
+-> so that the padding will not grow the box size.
+	
+	
+JS
+--
+{
+	to retrieve data-*attribute in JS,
+
+	const article = document.querySelector('#electric-cars');
+	// The following would also work:
+	// const article = document.getElementById("electric-cars")
+	article.dataset.columns // "3"
+	article.dataset.indexNumber // "12314"
+	article.dataset.parent // "cars"
+
+	-> we can also change the value
+	article.dataset.columns = 5;
+
+	all values are stored as string
+}
+
