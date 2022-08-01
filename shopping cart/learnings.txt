@@ -33,3 +33,31 @@ JS
 	all values are stored as string
 }
 
+
+document.querySelector("non existent object\");			-> returns null
+VM3030:1 Uncaught TypeError: Cannot read properties of null
+
+
+Static method
+inside class
+static method is to be called on the Class itself. Not on the object
+ex:-
+{
+class Car {
+  constructor(name) {
+    this.name = name;
+  }
+  static hello() {
+    return "Hello!!";
+  }
+}
+
+let myCar = new Car("Ford");
+
+// You can call 'hello()' on the Car Class:
+document.getElementById("demo").innerHTML = Car.hello();
+
+// But NOT on a Car Object:
+// document.getElementById("demo").innerHTML = myCar.hello();
+// this will raise an error.
+}
