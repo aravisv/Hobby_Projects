@@ -54,7 +54,23 @@ class UI{
         });
     productsDOM.innerHTML = result;        
     }
-    
+    getBagButtons(){
+        const buttons = [...document.querySelectorAll(".bag-btn")];
+        buttons.forEach(button =>{
+            let id = button.dataset.id;
+            let inCart = cart.find( item => item === id);
+            if(inCart){
+                button.innerText = "In cart";
+                button.disabled = true;
+            }
+            else{
+                button.addEventListener("click", (event) =>{
+                    event.target.innerText = "In cart";
+                    event.target.disabled = true;
+                })
+            }
+        })
+    }
 }
 
 //local storage 
@@ -71,6 +87,8 @@ document.addEventListener("DOMContentLoaded",()=>{
     products.getProducts().then( products => {
         ui.showProducts(products);
         Storage.saveProducts(products);
+    }).then( ()=>{
+        ui.getBagButtons();
     });
 
 });
