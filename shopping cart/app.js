@@ -87,9 +87,9 @@ class UI{
                 this.addCartItem(cartItem);
                 //show the cart
                 this.showCart();
-            })
+            });
             
-        })
+        });
     }
 
     setCartValues(cart){
@@ -127,12 +127,20 @@ class UI{
         cartDOM.classList.add('showCart');
     }
 
+    hideCart(){
+        cartOverlay.classList.remove('transparentBcg');
+        cartDOM.classList.remove('showCart');        
+    }
+
     setApp(){
         cart = Storage.getCart();       
         //why use this?
         //to access this class's function
         this.setCartValues(cart);
         this.populateCart(cart);
+        cartButton.addEventListener('click',this.showCart);
+        closeCartButton.addEventListener('click',this.hideCart);
+        this.cartLogic();
     }
 
     populateCart(cart){
@@ -140,7 +148,40 @@ class UI{
             this.addCartItem(item);            
         });
     }
+
+    clearCart(){        
+        //console.log("inside clearCart - this = ",this);
+        let cartItems = cart.map( item => item.id);
+        //console.log(cartItems);
+        cartItems.forEach( id => this.removeItem(id));
+        while(cartContent.children.length > 0){
+            cartContent.removeChild(cartContent.children[0]);
+        }
+        this.hideCart();
+    }
+
+    cartLogic(){
+        //this = html button element 
+        //clearCartButton.addEventListener('click', this.clearCart);
+
+        //this = UI class
+        clearCartButton.addEventListener('click', ()=>{
+            this.clearCart();
+        });
+    }
     
+    removeItem(id){        
+        cart = cart.filter( item => item.id !== id);        
+        this.setCartValues(cart);
+        Storage.saveCart(cart);
+        let button = this.getSingleButton(id);
+        button.disabled = false;
+        button.innerHTML = `<i class = "fas fa-shopping-cart"></i>add to cart`;
+    }
+
+    getSingleButton(id){
+        return buttonsDOM.find(button => button.dataset.id === id);
+    }
 }
 
 //local storage 
@@ -159,7 +200,6 @@ class Storage{
         //return (localStorage.getItem('cart'));    //this will return null
         return localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
     }
-
 }
 
 document.addEventListener("DOMContentLoaded",()=>{
