@@ -196,7 +196,7 @@ class UI{
                     Storage.saveCart(cart);
                     //to set the amount in cart
                     this.setCartValues(cart);
-                    addAmount.previousElementSibling.innerText = tempItem.amount;
+                    lowerAmount.previousElementSibling.innerText = tempItem.amount;
                 }
                 else{                    
                     cartContent.removeChild(removeItem.parentElement.parentElement);   

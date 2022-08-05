@@ -17,6 +17,7 @@ box-sizing:border-box;
 	
 JS
 --
+->
 {
 	to retrieve data-*attribute in JS,
 
@@ -33,11 +34,11 @@ JS
 	all values are stored as string
 }
 
-
+->
 document.querySelector("non existent object\");			-> returns null
 VM3030:1 Uncaught TypeError: Cannot read properties of null
 
-
+->
 Static method
 inside class
 static method is to be called on the Class itself. Not on the object
@@ -61,3 +62,19 @@ document.getElementById("demo").innerHTML = Car.hello();
 // document.getElementById("demo").innerHTML = myCar.hello();
 // this will raise an error.
 }
+
+
+->
+document.querySelectorAll("");		//gives nodelist
+[...document.querySelectorAll("")];		//gives array
+
+
+
+->
+
+if we want to access class attributes, then use arrow function in event listener and use this operator
+else it points to the html element
+
+
+
+
